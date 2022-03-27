@@ -1,4 +1,4 @@
-.top-cover__button {
+.bottom-cover__button {
   width: 30px;
   height: 30px;
   background-color: rgb(75, 75, 75);
@@ -8,10 +8,10 @@
   padding: 5px;
 }
 
-.top-cover__button:nth-of-type(odd){
+.bottom-cover__button:nth-of-type(odd){
   margin: 10px 0;
 }
 
-.top-cover__button:hover {
+.bottom-cover__button:hover {
   background-color: rgb(75, 75, 75, 0.8);
 }

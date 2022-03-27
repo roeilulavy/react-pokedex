@@ -1,11 +1,9 @@
 .bottom-cover {
-  background-image: url("../../images/bottom.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  width: 100%;
-  height: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
   padding: 0;
-  z-index: 2;
-  border-radius: 0 0 25px 25px;
+  z-index: 1;
 }

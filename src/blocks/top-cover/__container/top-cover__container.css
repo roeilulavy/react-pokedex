@@ -1,12 +1,27 @@
 .top-cover__container {
   position: relative;
-  align-self: flex-end;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  margin: 0 auto 20px;
-  padding: 50px 50px 20px;
+  gap: 15px;
+  align-items: flex-end;
+  margin: -130px auto 0;
+  padding: 50px 60px 10px;
   border: solid 1px green;
-  z-index: 1;
+  z-index: 3;
+}
+
+@media screen and (max-width: 768px) {
+  .top-cover__container{
+    margin: -110px auto 0;
+    padding: 30px 40px 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .top-cover__container{
+    gap: 7px;
+    margin: -83px auto 0;
+    padding: 15px 15px 5px;
+  }
 }

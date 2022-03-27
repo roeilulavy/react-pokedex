@@ -6,6 +6,7 @@ import Content from "./Content";
 import '../index.css';
 
 function App() {
+
   return (
     <div className="page">
       <div className="page__wrapper">
