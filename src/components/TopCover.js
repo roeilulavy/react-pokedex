@@ -1,5 +1,5 @@
 import React from 'react'
-import Background from '../images/top.jpg';
+import Background from '../images/top.png';
 import Prev from "../images/icon/undo.png";
 import Search from "../images/icon/search.svg";
 import Next from "../images/icon/redo.png";
