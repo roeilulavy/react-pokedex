@@ -1,0 +1,12 @@
+.top-cover__container {
+  position: relative;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto 20px;
+  padding: 50px 50px 20px;
+  border: solid 1px green;
+  z-index: 1;
+}

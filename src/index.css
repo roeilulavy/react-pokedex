@@ -7,6 +7,8 @@
 
 /*-- Top --*/
 @import url(./blocks/top-cover/top-cover.css);
+@import url(./blocks/top-cover/__container/top-cover__container.css);
+@import url(./blocks/top-cover/__button/top-cover__button.css);
 
 /*-- Bottom --*/
 @import url(./blocks/bottom-cover/bottom-cover.css);
