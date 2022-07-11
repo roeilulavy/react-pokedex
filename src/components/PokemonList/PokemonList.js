@@ -1,11 +1,9 @@
-import React from 'react';
+import './PokemonList.css';
 
-export default function List({ props }) {
+export default function PokemonList() {
   return (
-    <div className='list'>
-      <p>{props.id}</p>
-      <p>{props.name}</p>
-      <img src={props.img} alt={props.imgName} />
+    <div className='PokemonList'>
+      
     </div>
   );
 }

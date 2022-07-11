@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import api from "../../utils/api";
-import TopCover from "../CoverTop/CoverTop";
-import BottomCover from "../CoverBottom/CoverBottom";
-import Content from "../Content";
-import '../index.css';
+import { useState } from 'react';
+import './App.css';
+import CoverTop from '../CoverTop/CoverTop';
+import CoverBottom from '../CoverBottom/CoverBottom';
+import PokemonList from '../PokemonList/PokemonList';
 
-function App() {
+export default function App() {
 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="page">
-      <div className="page__wrapper">
-        
-      </div>
+    <div className="App">
+      <CoverTop isOpen={isOpen} />
+      <button className={`App__button ${isOpen && 'App__button_open'}`} onClick={() => setIsOpen(true)}>POKÉDEX</button>
+      {isOpen && <PokemonList />}
+      <CoverBottom isOpen={isOpen} />
     </div>
   );
 }
-
-export default App;
