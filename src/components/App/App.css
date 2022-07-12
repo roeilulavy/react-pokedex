@@ -1,5 +1,5 @@
 .App {
-  min-width: 700px;
+  min-width: 600px;
   height: 100vh;
   background-color: rgb(150, 255, 255);
   display: flex;
@@ -17,16 +17,11 @@
   background-color: rgb(150, 255, 255);
   border: solid 2px rgba(64, 217, 255, 0.5);
   border-radius: 200px;
-  padding: 122px 50px;
+  padding: 120px 45px;
   margin: -140px;
   z-index: 2;
   opacity: 1;
   transition: all ease-in-out 0.5s;
-}
-
-.App__button_open {
-  opacity: 0;
-  display: none;
 }
 
 .App__button:hover {
@@ -37,7 +32,7 @@
   border: solid 2px rgba(64, 217, 255, 0);
 }
 
-@media screen and (max-width:750px) {
+@media screen and (max-width:600px) {
   .App {
     min-width: 100%;
   }

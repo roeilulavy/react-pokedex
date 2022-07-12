@@ -11,8 +11,7 @@ export default function App() {
   return (
     <div className="App">
       <CoverTop isOpen={isOpen} />
-      <button className={`App__button ${isOpen && 'App__button_open'}`} onClick={() => setIsOpen(true)}>POKÉDEX</button>
-      {isOpen && <PokemonList />}
+      {isOpen ? <PokemonList /> : <button className='App__button' onClick={() => setIsOpen(true)}>POKÉDEX</button> }
       <CoverBottom isOpen={isOpen} />
     </div>
   );
