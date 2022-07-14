@@ -6,8 +6,9 @@ import './PokemonInfo.css';
 export default function PokemonInfo({ data }) {
 
   const [url] = useState(`https://pokeapi.co/api/v2/evolution-chain/${data.id}`);
-
-
+  const [typeColor, setTypeColor] = useState(data.types[0].type.name);
+  const [color, setColor] = useState('');
+  
   useEffect(() => {
     const getEvolutions = async () => {
       const res = await axios.get(url);
@@ -18,14 +19,101 @@ export default function PokemonInfo({ data }) {
     }
 
     getEvolutions();
-  }, [url])
+  }, [url]);
+
+  useEffect(() => {
+    switch(typeColor) {
+      case 'normal':
+        setColor('#d3d3af');
+        break;
+      
+      case 'fighting':
+        setColor('#d56723');
+        break;
+      
+      case 'flying':
+        setColor('#a1d1f8');
+        break;
+      
+      case 'poison':
+        setColor('#7fa8c9');
+        break;
+      
+      case 'ground':
+        setColor('#7c7e29');
+        break;
+      
+      case 'rock':
+        setColor('#a38c21');
+        break;
+      
+      case 'bug':
+        setColor('#729f3f');
+        break;
+      
+      case 'ghost':
+        setColor('#7b62a3');
+        break;
+      
+      case 'steel':
+        setColor('#9eb7b8');
+        break;
+      
+      case 'fire':
+        setColor('#fd7d24');
+        break;
+      
+      case 'water':
+        setColor('#4592c4');
+        break;
+      
+        case 'grass':
+        setColor('#9bcc50');
+        break;
+      
+      case 'electric':
+        setColor('#eed535');
+        break;
+      
+      case 'psychic':
+        setColor('#f366b9');
+        break;
+      
+      case 'ice':
+        setColor('#51c4e7');
+        break;
+      
+      case 'dragon':
+        setColor('#3d167c');
+        break;
+      
+      case 'dark':
+        setColor('#303030');
+        break;
+      
+      case 'fairy':
+        setColor('#fdb9e9');
+        break;
+      
+      case 'unknown':
+        setColor('#000');
+        break;
+
+      case 'shadow':
+         setColor('#333');
+         break;
+
+      default:
+        setColor('#ffffff');
+    }
+  }, [typeColor]);
 
   return(
     <>
       {(!data) ? "" : (
         <div className='PokemonInfo'>
           <div className='PokemonInfo__header'>
-            <img src={data.sprites.front_default} alt={data.name} />
+            <img className='PokemonInfo__header-image' src={data.sprites.front_default} alt={data.name} />
             <h1 className='PokemonInfo__title'>#{data.id}  {data.name}</h1>
           </div>
           
@@ -72,13 +160,14 @@ export default function PokemonInfo({ data }) {
                   return(
                     <>
                       <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
-                      <ProgressBar completed={stat.base_stat} maxCompleted={200} />
+                      <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius={5} />
                     </>
                   )
                 })
               }
             </div>
           </div>
+          <div className='PokemonInfo__spacer' />
         </div>
       )}
     </>
