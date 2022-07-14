@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import ProgressBar from "@ramonak/react-progress-bar";
 import './PokemonInfo.css';
 
 export default function PokemonInfo({ data }) {
@@ -25,44 +26,58 @@ export default function PokemonInfo({ data }) {
         <div className='PokemonInfo'>
           <div className='PokemonInfo__header'>
             <img src={data.sprites.front_default} alt={data.name} />
-            <p className='PokemonInfo__title'>#{data.id}  {data.name}</p>
+            <h1 className='PokemonInfo__title'>#{data.id}  {data.name}</h1>
           </div>
           
           <img className='PokemonInfo__image' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`} alt={data.name} />
-          <h2>height: {data.height} m</h2>
-          <h2>weight: {data.weight} kg</h2>
-          <div className='PokemonInfo__type'>
-            {
-              data.types.map((type, index) => {
-                return(
-                  <div className={type.type.name}>
-                    <h4 key={index}>{type.type.name}</h4>
-                  </div>
-                )
-              })
-            }
+
+          <div className={`PokemonInfo__info-container ${data.types[0].type.name}`}>
+            <div className='PokemonInfo__body-container'>
+              <p className='PokemonInfo__body-p'>height: {data.height / 10} m</p>
+              <p className='PokemonInfo__body-p'>weight: {data.weight / 10} kg</p>
+            </div>
+          
+            <div className='PokemonInfo__type-container'>
+              <h2 className='PokemonInfo__type-h2'>Type</h2>
+              <div className='PokemonInfo__type-type'>
+                {
+                  data.types.map((type) => {
+                    return(
+                      <p className={`type ${type.type.name}`}>{type.type.name}</p>
+                    );
+                  })
+                }
+              </div>
+            </div>
+
+            <div className='PokemonInfo__abilities-container'>
+              <h2 className='PokemonInfo__type-h2'>Abilities</h2>
+              <div className='PokemonInfo__ability-ability'>
+                {
+                  data.abilities.map((ability) => {
+                    return(
+                      <h4 className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
+                    )
+                  })
+                }
+                </div>
+            </div>
           </div>
-          <div className='PokemonInfo__abilities'>
-            {
-              data.abilities.map((ability, index) => {
-                return(
-                  <div className='PokemonInfo__ability-name'>
-                    <h4 key={index}>{ability.ability.name}</h4>
-                  </div>
-                )
-              })
-            }
-          </div>
+          
           <div className='PokemonInfo__stats'>
-            {
-              data.stats.map((stat, index) => {
-                return(
-                  <div className='PokemonInfo__ability-name'>
-                    <h6 key={index}>{stat.stat.name}: {stat.base_stat}</h6>
-                  </div>
-                )
-              })
-            }
+            <h2 className='PokemonInfo__type-h2 stats-h2'>Base status</h2>
+            <div className='PokemonInfo__stats-container'>
+              {
+                data.stats.map((stat) => {
+                  return(
+                    <>
+                      <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
+                      <ProgressBar completed={stat.base_stat} maxCompleted={200} />
+                    </>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       )}

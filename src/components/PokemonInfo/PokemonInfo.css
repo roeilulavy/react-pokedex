@@ -3,6 +3,7 @@
   width: 90%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .PokemonInfo__header {
@@ -10,12 +11,118 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .PokemonInfo__image {
-  background: linear-gradient(0deg, rgba(55,98,202,1) 0%, rgba(117,197,240,1) 100%);
+  width: 80%;
+  border: white 2px solid;
+  border-radius: 10px;
+  margin: 0;
+  padding: 0;
 }
 
+.PokemonInfo__info-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.PokemonInfo__body-container {
+  background-color: #ebebeb;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.PokemonInfo__body-p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.PokemonInfo__type-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.PokemonInfo__type-h2 {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.PokemonInfo__type-type {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 0 0 10px;
+}
+
+.type {
+  font-size: 18px;
+  line-height: 20px;
+  color: white;
+  margin: 0;
+  padding: 2px 5px;
+}
+
+.PokemonInfo__abilities-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.PokemonInfo__ability-ability {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 0 0 10px;
+}
+
+.PokemonInfo__ability-name {
+  font-size: 18px;
+  line-height: 20px;
+  color: black;
+  background-color: #dddddd;
+  margin: 0;
+  padding: 2px 5px;
+}
+
+.PokemonInfo__stats {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 5px 20px;
+}
+
+.stats-h2 {
+  align-self: center;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+.PokemonInfo__stats-name {
+  margin: 10px 0 0;
+  padding: 0;
+}
+ 
 .normal {
   background: #d3d3af
 }
