@@ -6,7 +6,7 @@ import './PokemonInfo.css';
 export default function PokemonInfo({ data }) {
 
   const [url] = useState(`https://pokeapi.co/api/v2/evolution-chain/${data.id}`);
-  const [typeColor, setTypeColor] = useState(data.types[0].type.name);
+  const [typeColor] = useState(data.types[0].type.name);
   const [color, setColor] = useState('');
   
   useEffect(() => {

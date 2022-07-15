@@ -4,13 +4,12 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 1s;
   z-index: 1;
   overflow: hidden;
 }
 
 .CoverTop_open {
-  position: relative;
   width: 100%;
   height: 20%;
   display: flex;
@@ -48,8 +47,47 @@
   margin: 0;
   padding: 0;
   z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2%;
 }
 
-@media screen and (max-width:600px) {
- 
+.CoverTop__button {
+  width: 20%;
+  height: 20%;
+  border-radius: 200px;
+  margin-bottom: 30px;
+  padding: 5px;
+}
+
+.CoverTop__center-button {
+  width: 20%;
+  height: 20%;
+  border-radius: 100px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+@media screen and (max-width:550px) {
+  .CoverTop_open {
+    height: 15%;
+  }
+
+  .CoverTop__background {
+    left: -10%;
+    width: 120%;
+  }
+
+  .CoverTop__content {
+    width: 60%;
+  }
+}
+
+
+@media screen and (max-width:400px) {
+  .CoverTop__button {
+    margin-bottom: 20px;
+  }
 }

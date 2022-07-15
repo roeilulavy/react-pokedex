@@ -31,9 +31,3 @@
   box-shadow: 0px 0px 10px 0px black;
   border: solid 2px rgba(64, 217, 255, 0);
 }
-
-@media screen and (max-width:600px) {
-  .App {
-    min-width: 100%;
-  }
-}
