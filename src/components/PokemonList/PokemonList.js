@@ -5,18 +5,15 @@ import Pokeload from '../../images/Pokeball-gif.gif';
 import PokemonItem from '../PokemonItem/PokemonItem';
 import PokemonInfo from '../PokemonInfo/PokemonInfo';
 
-export default function PokemonList() {
+export default function PokemonList({ isInfoOpen, setIsInfoOpen }) {
 
   const [pokedata, setPokedata] = useState([]);
   const [info, setInfo] = useState();
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isPokemonLoading, setIsPokemonLoading] = useState(true);
   const [url] = useState('https://pokeapi.co/api/v2/pokemon/');
-
-  useEffect(() => {
-    console.log(info);
-  }, [info])
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -35,12 +32,11 @@ export default function PokemonList() {
         if(result) {
           setIsPokemonLoading(false);
           setPokedata(state => {
-          state = [...state, result.data];
-          state.sort((a,b) => a.id > b.id ? 1:-1);
-          return state;
-        });
-        }
-        
+            state = [...state, result.data];
+            state.sort((a,b) => a.id > b.id ? 1:-1);
+            return state;
+          });
+        };
       });
     };
 
@@ -49,8 +45,20 @@ export default function PokemonList() {
     }, 1000);
   }, [url]);
 
+  useEffect(() => {
+    if(!isInfoOpen) {
+      console.log(isInfoOpen);
+      window.scrollTo(0, 50000)
+    }
+  }, [isInfoOpen])
+
+  const onitemClick = () => {
+    console.log(scroll);
+    setScrollPosition(scroll);
+  }
+
   return (
-    <div className='PokemonList'>
+    <div id='PokemonList' className='PokemonList' onScroll={(e) => setScroll(e.target.scrollTop)}>
       {isLoading ?
         (<img className='PokemonList__loader' src={Pokeload} alt='Loader'/>)
       :
@@ -67,6 +75,7 @@ export default function PokemonList() {
                   name={item.name}
                   infoPokemon={poke => setInfo(poke)}
                   setIsInfoOpen={setIsInfoOpen}
+                  onitemClick={onitemClick}
                 />
               )
             })}

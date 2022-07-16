@@ -5,7 +5,6 @@
   margin: 0;
   padding: 0;
   transition: all ease-in-out 1s;
-  z-index: 1;
   overflow: hidden;
 }
 
@@ -18,7 +17,6 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  z-index: 1;
 }
 
 .CoverTop__background {
@@ -34,7 +32,6 @@
   background-position: bottom;
   margin: 0;
   padding: 0;
-  z-index: 2;
 }
 
 .CoverTop__content {
@@ -46,7 +43,6 @@
   border-radius: 200px;
   margin: 0;
   padding: 0;
-  z-index: 1;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -60,6 +56,7 @@
   border-radius: 200px;
   margin-bottom: 30px;
   padding: 5px;
+  z-index: 1;
 }
 
 .CoverTop__center-button {
@@ -68,6 +65,11 @@
   border-radius: 100px;
   margin-bottom: 5px;
   padding: 5px;
+  z-index: 1;
+}
+
+.CoverTop__button:hover, .CoverTop__center-button:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width:550px) {

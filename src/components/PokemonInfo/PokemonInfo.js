@@ -1,25 +1,16 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import './PokemonInfo.css';
 
 export default function PokemonInfo({ data }) {
 
-  const [url] = useState(`https://pokeapi.co/api/v2/evolution-chain/${data.id}`);
   const [typeColor] = useState(data.types[0].type.name);
   const [color, setColor] = useState('');
-  
+  const ref = useRef();
+
   useEffect(() => {
-    const getEvolutions = async () => {
-      const res = await axios.get(url);
-
-      if (res) {
-        console.log(res.data)
-      }
-    }
-
-    getEvolutions();
-  }, [url]);
+    ref.current.scrollIntoView();
+  }, []);
 
   useEffect(() => {
     switch(typeColor) {
@@ -112,7 +103,7 @@ export default function PokemonInfo({ data }) {
     <>
       {(!data) ? "" : (
         <div className='PokemonInfo'>
-          <div className='PokemonInfo__header'>
+          <div className='PokemonInfo__header' ref={ref}>
             <img className='PokemonInfo__header-image' src={data.sprites.front_default} alt={data.name} />
             <h1 className='PokemonInfo__title'>#{data.id}  {data.name}</h1>
           </div>
@@ -129,9 +120,9 @@ export default function PokemonInfo({ data }) {
               <h2 className='PokemonInfo__type-h2'>Type</h2>
               <div className='PokemonInfo__type-type'>
                 {
-                  data.types.map((type) => {
+                  data.types.map((type, index) => {
                     return(
-                      <p className={`type ${type.type.name}`}>{type.type.name}</p>
+                      <p key={index} className={`type ${type.type.name}`}>{type.type.name}</p>
                     );
                   })
                 }
@@ -142,9 +133,9 @@ export default function PokemonInfo({ data }) {
               <h2 className='PokemonInfo__type-h2'>Abilities</h2>
               <div className='PokemonInfo__ability-ability'>
                 {
-                  data.abilities.map((ability) => {
+                  data.abilities.map((ability, index) => {
                     return(
-                      <h4 className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
+                      <h4 key={index} className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
                     )
                   })
                 }
@@ -156,12 +147,12 @@ export default function PokemonInfo({ data }) {
             <h2 className='PokemonInfo__type-h2 stats-h2'>Base status</h2>
             <div className='PokemonInfo__stats-container'>
               {
-                data.stats.map((stat) => {
+                data.stats.map((stat, index) => {
                   return(
-                    <>
+                    <div key={index}>
                       <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
-                      <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius={5} />
-                    </>
+                      <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius='5px' />
+                    </div>
                   )
                 })
               }
