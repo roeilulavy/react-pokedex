@@ -8,10 +8,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (max-width:600px) {
   #root {
-    align-items: flex-start;
+    width: 98vw;
+    padding: 0 1px;
   }
 }

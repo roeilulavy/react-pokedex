@@ -18,9 +18,9 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
     <div className={`CoverBottom ${isOpen && 'CoverBottom_open'}`}>
       {isOpen && 
         <div className='CoverBottom__content'>
-          <button className='CoverBottom__button' onClick={() => onBackButtonClick()}>back</button>
-          <button className='CoverBottom__center-button'>mute</button>
-          <button className='CoverBottom__button' onClick={() => onCloseButtonClick()}>close</button>
+          <button className='CoverBottom__button' onClick={() => onBackButtonClick()}>B</button>
+          <button className='CoverBottom__center-button'>M</button>
+          <button className='CoverBottom__button' onClick={() => onCloseButtonClick()}>C</button>
         </div>
       }
       <div className='CoverBottom__background' />
