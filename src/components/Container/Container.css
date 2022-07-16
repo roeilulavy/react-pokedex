@@ -1,12 +1,11 @@
 .Container {
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgb(197, 249, 255);
   margin: 0;
-  padding: 5px 0;
-  overflow-y: auto;
+  padding: 0;
 }

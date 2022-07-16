@@ -9,6 +9,8 @@
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   opacity: 1;
   transition: all ease-in-out 0.5ms;
+  margin: 10px;
+  padding: 0;
 }
 
 .PokemonItem:hover {
@@ -16,6 +18,7 @@
 }
 
 .PokemonItem__id {
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
   padding: 10px 0;
@@ -28,6 +31,7 @@
 }
 
 .PokemonItem__name {
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
   padding: 10px 0;

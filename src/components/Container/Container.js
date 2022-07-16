@@ -10,7 +10,7 @@ export default function Container({ isInfoOpen, setIsInfoOpen }) {
   const [url] = useState('https://pokeapi.co/api/v2/pokemon/');
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [pokemonInfo, setPokemonInfo] = useState();
+  const [pokemonInfo, setPokemonInfo] = useState(null);
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -18,7 +18,6 @@ export default function Container({ isInfoOpen, setIsInfoOpen }) {
 
       if (res) {
         getPokemons(res.data.results);
-        setIsLoading(false);
       };
     };
 
@@ -38,36 +37,33 @@ export default function Container({ isInfoOpen, setIsInfoOpen }) {
 
     getAllPokemons();
 
-    // setTimeout(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-    // }, 1000);
   }, [url]);
-
-  useEffect(() => {
-    if(!isInfoOpen) {
-      console.log(isInfoOpen);
-      
-    }
-  }, [isInfoOpen]);
 
   return(
     <div className='Container'>
       {isLoading ?
-        (<img className='PokemonList__loader' src={Pokeload} alt='Loader'/>)
+        <img className='PokemonList__loader' src={Pokeload} alt='Loader'/>
       :
-        (!isInfoOpen ?
+        <>
           <PokemonList
             data={data}
             setPokemonInfo={setPokemonInfo}
+            isInfoOpen={isInfoOpen}
             setIsInfoOpen={setIsInfoOpen}
           />
-          :
-          <PokemonInfoCard
-            pokemonInfo={pokemonInfo}
-          />
-        )
-      }
 
+          {pokemonInfo &&
+            <PokemonInfoCard 
+              pokemonInfo={pokemonInfo}
+              isInfoOpen={isInfoOpen}
+            />
+          }
+        </>
+      }
     </div>
   );
 }

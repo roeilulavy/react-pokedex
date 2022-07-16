@@ -2,15 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import './PokemonInfoCard.css';
 
-export default function PokemonInfo({ pokemonInfo }) {
 
-  const [typeColor] = useState(pokemonInfo.types[0].type.name);
+
+export default function PokemonInfo({ pokemonInfo, isInfoOpen }) {
+
+  const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
   const ref = useRef();
 
   useEffect(() => {
     ref.current.scrollIntoView();
-  }, []);
+    setTypeColor(pokemonInfo.types[0].type.name);
+  }, [pokemonInfo]);
 
   useEffect(() => {
     switch(typeColor) {
@@ -102,7 +105,7 @@ export default function PokemonInfo({ pokemonInfo }) {
   return(
     <>
       {(!pokemonInfo) ? "" : (
-        <div className='PokemonInfo'>
+        <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
           <div className='PokemonInfo__header' ref={ref}>
             <img className='PokemonInfo__header-image' src={pokemonInfo.sprites.front_default} alt={pokemonInfo.name} />
             <h1 className='PokemonInfo__title'>#{pokemonInfo.id}  {pokemonInfo.name}</h1>

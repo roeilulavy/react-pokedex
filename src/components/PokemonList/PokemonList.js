@@ -1,10 +1,10 @@
 import './PokemonList.css';
 import PokemonListItem from '../PokemonListItem/PokemonListItem';
 
-export default function PokemonList({ data, setPokemonInfo, setIsInfoOpen }) {
+export default function PokemonList({ data, setPokemonInfo, isInfoOpen, setIsInfoOpen }) {
 
   return (
-    <div className='PokemonList'>
+    <div className={isInfoOpen ? 'PokemonList_close' : 'PokemonList'}>
       {data.map((item, index) => {
         return (
           <PokemonListItem
