@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import CoverTop from '../CoverTop/CoverTop';
 import CoverBottom from '../CoverBottom/CoverBottom';
-import PokemonList from '../PokemonList/PokemonList';
+import Container from '../Container/Container';
 
 export default function App() {
 
@@ -14,7 +14,7 @@ export default function App() {
       <CoverTop isOpen={isOpen} />
       {
         isOpen ? 
-          <PokemonList isInfoOpen={isInfoOpen} setIsInfoOpen={setIsInfoOpen} />
+          <Container isInfoOpen={isInfoOpen} setIsInfoOpen={setIsInfoOpen} />
         :
           <button className='App__button' onClick={() => setIsOpen(true)}>POKÉDEX</button>
       }

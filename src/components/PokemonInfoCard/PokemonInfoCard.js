@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
-import './PokemonInfo.css';
+import './PokemonInfoCard.css';
 
-export default function PokemonInfo({ data }) {
+export default function PokemonInfo({ pokemonInfo }) {
 
-  const [typeColor] = useState(data.types[0].type.name);
+  const [typeColor] = useState(pokemonInfo.types[0].type.name);
   const [color, setColor] = useState('');
   const ref = useRef();
 
@@ -101,26 +101,26 @@ export default function PokemonInfo({ data }) {
 
   return(
     <>
-      {(!data) ? "" : (
+      {(!pokemonInfo) ? "" : (
         <div className='PokemonInfo'>
           <div className='PokemonInfo__header' ref={ref}>
-            <img className='PokemonInfo__header-image' src={data.sprites.front_default} alt={data.name} />
-            <h1 className='PokemonInfo__title'>#{data.id}  {data.name}</h1>
+            <img className='PokemonInfo__header-image' src={pokemonInfo.sprites.front_default} alt={pokemonInfo.name} />
+            <h1 className='PokemonInfo__title'>#{pokemonInfo.id}  {pokemonInfo.name}</h1>
           </div>
           
-          <img className='PokemonInfo__image' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`} alt={data.name} />
+          <img className='PokemonInfo__image' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} alt={pokemonInfo.name} />
 
-          <div className={`PokemonInfo__info-container ${data.types[0].type.name}`}>
+          <div className={`PokemonInfo__info-container ${pokemonInfo.types[0].type.name}`}>
             <div className='PokemonInfo__body-container'>
-              <p className='PokemonInfo__body-p'>height: {data.height / 10} m</p>
-              <p className='PokemonInfo__body-p'>weight: {data.weight / 10} kg</p>
+              <p className='PokemonInfo__body-p'>height: {pokemonInfo.height / 10} m</p>
+              <p className='PokemonInfo__body-p'>weight: {pokemonInfo.weight / 10} kg</p>
             </div>
           
             <div className='PokemonInfo__type-container'>
               <h2 className='PokemonInfo__type-h2'>Type</h2>
               <div className='PokemonInfo__type-type'>
                 {
-                  data.types.map((type, index) => {
+                  pokemonInfo.types.map((type, index) => {
                     return(
                       <p key={index} className={`type ${type.type.name}`}>{type.type.name}</p>
                     );
@@ -133,7 +133,7 @@ export default function PokemonInfo({ data }) {
               <h2 className='PokemonInfo__type-h2'>Abilities</h2>
               <div className='PokemonInfo__ability-ability'>
                 {
-                  data.abilities.map((ability, index) => {
+                  pokemonInfo.abilities.map((ability, index) => {
                     return(
                       <h4 key={index} className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
                     )
@@ -147,7 +147,7 @@ export default function PokemonInfo({ data }) {
             <h2 className='PokemonInfo__type-h2 stats-h2'>Base status</h2>
             <div className='PokemonInfo__stats-container'>
               {
-                data.stats.map((stat, index) => {
+                pokemonInfo.stats.map((stat, index) => {
                   return(
                     <div key={index}>
                       <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
