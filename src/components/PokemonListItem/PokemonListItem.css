@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(187, 230, 255);
-  border: solid 2px rgba(0, 0, 0, 0.1);
+  background: radial-gradient(circle, rgba(160,211,255,1) 0%, rgba(50,92,152,1) 50%, rgba(0,38,105,1) 100%);
+  color: azure;
+  border: solid 1px azure;
   border-radius: 30px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   opacity: 1;
@@ -19,20 +20,32 @@
 
 .PokemonItem__id {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
   text-align: center;
   margin: 0;
-  padding: 10px 0;
+  padding: 10px 0 0;
 }
 
 .PokemonItem__image {
   width: 80%;
   margin: 0;
-  padding: 0px;
+  padding: 0;
 }
 
 .PokemonItem__name {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
   text-align: center;
   margin: 0;
-  padding: 10px 0;
+  padding: 0 0 10px;
+}
+
+@media screen and (max-width:470px) {
+  .PokemonItem__id {
+    font-size: 16px;
+  }
+
+  .PokemonItem__name {
+    font-size: 14px;
+  }
 }
