@@ -1,18 +1,37 @@
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import './PokemonInfoCard.css';
 
+export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
 
-
-export default function PokemonInfo({ pokemonInfo, isInfoOpen }) {
-
+  const [pokemonInfo, setPokemonInfo] = useState(null);
   const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
   const ref = useRef();
 
   useEffect(() => {
-    ref.current.scrollIntoView();
-    setTypeColor(pokemonInfo.types[0].type.name);
+    
+
+    const getPokemonDetails = async() => {
+      return await axios.get(url + 'pokemon/' + pokemonId)
+        .then(res => {
+          console.log(res.data);
+          setPokemonInfo(res.data);
+        }).catch((err) => {
+          console.log(err);
+        })
+    }
+    getPokemonDetails();
+  }, [pokemonId]);
+
+  useEffect(() => {
+    if (pokemonInfo === null) {
+      return;
+    } else {
+      ref.current.scrollIntoView();
+      setTypeColor(pokemonInfo.types[0].type.name);
+    }
   }, [pokemonInfo]);
 
   useEffect(() => {
@@ -139,7 +158,7 @@ export default function PokemonInfo({ pokemonInfo, isInfoOpen }) {
                   pokemonInfo.abilities.map((ability, index) => {
                     return(
                       <h4 key={index} className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
-                    )
+                    );
                   })
                 }
                 </div>
@@ -156,7 +175,7 @@ export default function PokemonInfo({ pokemonInfo, isInfoOpen }) {
                       <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
                       <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius='5px' />
                     </div>
-                  )
+                  );
                 })
               }
             </div>
@@ -165,6 +184,5 @@ export default function PokemonInfo({ pokemonInfo, isInfoOpen }) {
         </div>
       )}
     </>
-    
-  )
+  );
 }

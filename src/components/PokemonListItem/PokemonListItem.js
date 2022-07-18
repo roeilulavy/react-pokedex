@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import './PokemonListItem.css';
 import Pokeload from '../../images/pokeball-jump.gif';
 
-export default function PokemonItem({ item, id, image, name, setPokemonInfo, setIsInfoOpen }) {
+export default function PokemonItem({ item, id, image, name, setPokemonId, setIsInfoOpen }) {
 
   const [isImageLoading, setIsImageLoading] = useState(false);
 
   function onPokemonClick(pokemonData) {
-    setPokemonInfo(pokemonData);
+    setPokemonId(pokemonData);
     setIsInfoOpen(true);
   }
 
