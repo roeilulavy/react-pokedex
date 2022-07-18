@@ -191,7 +191,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
             <div className='PokemonInfo__spacer' />
           </>
         :
-          <img className='PokemonInfo__loading' src={Pokeload} alt='Loading pokemon'/>
+          (isLoading && <img className='PokemonInfo__loading' src={Pokeload} alt='Loading pokemon'/>)
         }
       </div>
     );

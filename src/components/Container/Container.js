@@ -4,7 +4,12 @@ import PokemonList from '../PokemonList/PokemonList';
 import PokemonInfoCard from '../PokemonInfoCard/PokemonInfoCard';
 import CloseBtn from '../../images/icon/close.png';
 
-export default function Container({ url, isLoading, pokemonList, pokemonId, setPokemonId, isInfoOpen, setIsInfoOpen, searchInputOpen }) {
+export default function Container({ url, isLoading, pokemonList, pokemonId, setPokemonId, isInfoOpen, setIsInfoOpen, searchInputOpen, searchKeyword, setSearchKeyword }) {
+
+  const clearText = () => {
+    setSearchKeyword('');
+  }
+
   return(
     <div className='Container'>
       {isLoading ?
@@ -13,8 +18,14 @@ export default function Container({ url, isLoading, pokemonList, pokemonId, setP
         <>
           {searchInputOpen &&
             <div className='Container__search-container'>
-              <input className='Container__search-input' type='text' placeholder='Enter Name or ID'/>
-              <button className='Container__search-close'>
+              <input
+                className='Container__search-input'
+                type='text'
+                placeholder='Enter Name or ID'
+                value={searchKeyword}
+                onChange={e => setSearchKeyword(e.target.value)}
+              />
+              <button className='Container__search-close' onClick={() => clearText()}>
                 <img className='Container__search-close-icon' src={CloseBtn} alt='Close button'/>
               </button>
             </div>
@@ -24,6 +35,7 @@ export default function Container({ url, isLoading, pokemonList, pokemonId, setP
             setPokemonId={setPokemonId}
             isInfoOpen={isInfoOpen}
             setIsInfoOpen={setIsInfoOpen}
+            searchKeyword={searchKeyword}
           />
 
           {pokemonId &&

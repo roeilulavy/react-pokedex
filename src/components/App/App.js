@@ -14,6 +14,7 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [searchInputOpen, setSearchInputOpen] =useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
    //Get all pokemons
    useEffect(() => {
@@ -47,6 +48,8 @@ export default function App() {
   }, [url]);
 
   const onNextPokemonClick = () => {
+    if (pokemonId === pokemonList.length) return;
+
     let next = pokemonId + 1;
     setPokemonId(next);
   }
@@ -67,6 +70,8 @@ export default function App() {
         setSearchInputOpen={setSearchInputOpen}
         onNextPokemonClick={onNextPokemonClick}
         onPrevPokemonClick={onPrevPokemonClick}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
       />
       {
         isOpen ? 
@@ -79,6 +84,8 @@ export default function App() {
             isInfoOpen={isInfoOpen}
             setIsInfoOpen={setIsInfoOpen}
             searchInputOpen={searchInputOpen}
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
           />
         :
           <button className='App__button' onClick={() => setIsOpen(true)}>POKÉDEX</button>
