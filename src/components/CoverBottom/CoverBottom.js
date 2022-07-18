@@ -28,6 +28,7 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
   }
 
   const onCloseButtonClick = () => {
+    setIsInfoOpen(false);
     setIsOpen(false);
   }
 

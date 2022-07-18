@@ -10,6 +10,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonInfo, setPokemonInfo] = useState(null);
   const [image, setImage] = useState(null);
+  const [description, setDescription] = useState('');
   const [imageError, setImageError] = useState(false);
   const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
@@ -57,7 +58,32 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
           setImageError(true);
         }
       }
+
+      const getEvolution = async() => {
+        let evolutionUrl = `https://pokeapi.co/api/v2/evolution-chain/${pokemonInfo.id}`;
+
+        return await axios.get(evolutionUrl)
+          .then((res) => {
+            console.log(res.data);
+          })
+      }
+
+      const getDescription = async() => {
+        let descriptionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`;
+
+        return await axios.get(descriptionUrl)
+          .then((res) => {
+            console.log(res.data.flavor_text_entries[0].flavor_text)
+            setDescription(res.data.flavor_text_entries[0].flavor_text);
+          }).catch((err) => {
+            console.log(err);
+          });
+      }
+
+
       getImage();
+      getDescription();
+      getEvolution();
     }
   }, [pokemonInfo]);
 
@@ -164,6 +190,11 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
             }
 
             <div className={`PokemonInfo__info-container ${pokemonInfo.types[0].type.name}`}>
+              <div className='PokemonInfo__type-container'>
+                <h2 className='PokemonInfo__type-h2'>Description</h2>
+                <p className='PokemonInfo__body-p'>{description}</p>
+              </div>
+
               <div className='PokemonInfo__body-container'>
                 <p className='PokemonInfo__body-p'>height: {pokemonInfo.height / 10} m</p>
                 <p className='PokemonInfo__body-p'>weight: {pokemonInfo.weight / 10} kg</p>
