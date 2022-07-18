@@ -2,12 +2,15 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import Pokeload from '../../images/Pokeball-gif.gif';
+import Error from '../../images/gastly-404.gif';
 import './PokemonInfoCard.css';
 
 export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonInfo, setPokemonInfo] = useState(null);
+  const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState(false);
   const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
   const ref = useRef();
@@ -16,13 +19,12 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
     const getPokemonDetails = async() => {
       return await axios.get(url + 'pokemon/' + pokemonId)
         .then(res => {
-          console.log(res.data);
           setPokemonInfo(res.data);
         }).then(() => {
           setIsLoading(false);
         }).catch((err) => {
           console.log(err);
-        })
+        });
     }
     getPokemonDetails();
   }, [pokemonId, url]);
@@ -33,6 +35,29 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
     } else {
       ref.current.scrollIntoView();
       setTypeColor(pokemonInfo.types[0].type.name);
+
+      const getImage = async() => {
+        try {
+          let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`;
+
+          return await axios.get(imageUrl)
+            .then(res => {
+              if (res.status === 200) {
+                setImage(imageUrl);
+                setImageError(false);
+              } else {
+                setImageError(true);
+              }
+            }).catch((err) => {
+              console.log(err);
+              setImageError(true);
+            });
+        } catch (err) {
+          console.log(err);
+          setImageError(true);
+        }
+      }
+      getImage();
     }
   }, [pokemonInfo]);
 
@@ -123,12 +148,6 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
     }
   }, [typeColor]);
 
-  useEffect(() => {
-    if(isInfoOpen) {
-      setPokemonInfo(null)
-    }
-  }, [isInfoOpen])
-
   return(
       <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
         {pokemonInfo ?
@@ -138,7 +157,11 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
               <h1 className='PokemonInfo__title'>#{pokemonInfo.id}  {pokemonInfo.name}</h1>
             </div>
           
-            <img className='PokemonInfo__image' src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} alt={pokemonInfo.name} />
+            {imageError ?
+              <img className='PokemonInfo__image' src={Error} alt={pokemonInfo.name} />
+            :
+              <img className='PokemonInfo__image' src={image} alt={pokemonInfo.name} />
+            }
 
             <div className={`PokemonInfo__info-container ${pokemonInfo.types[0].type.name}`}>
               <div className='PokemonInfo__body-container'>

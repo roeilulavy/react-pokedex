@@ -17,7 +17,7 @@ export default function Container({ url, isLoading, pokemonList, pokemonId, setP
       :
         <>
           {searchInputOpen &&
-            <div className='Container__search-container'>
+            <div className={`${isInfoOpen ? 'Container__search-container_close' : 'Container__search-container'}`}>
               <input
                 className='Container__search-input'
                 type='text'
@@ -25,8 +25,8 @@ export default function Container({ url, isLoading, pokemonList, pokemonId, setP
                 value={searchKeyword}
                 onChange={e => setSearchKeyword(e.target.value)}
               />
-              <button className='Container__search-close' onClick={() => clearText()}>
-                <img className='Container__search-close-icon' src={CloseBtn} alt='Close button'/>
+              <button className='Container__search-clear' onClick={() => clearText()}>
+                <img className='Container__search-clear-icon' src={CloseBtn} alt='Close button'/>
               </button>
             </div>
           }
