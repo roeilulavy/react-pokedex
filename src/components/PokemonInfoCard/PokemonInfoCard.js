@@ -10,6 +10,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
 
   const {speak, cancel, speaking, voices} = useSpeechSynthesis();
   const voice = voices[1] || null;
+  const [id, setId] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonInfo, setPokemonInfo] = useState(null);
   const [image, setImage] = useState(null);
@@ -25,8 +26,9 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
 
 
   useEffect(() => {
+    setId(pokemonId);
     const getPokemonDetails = async() => {
-      return await axios.get(url + 'pokemon/' + pokemonId)
+      return await axios.get(url + 'pokemon/' + id)
         .then(res => {
           setPokemonInfo(res.data);
         }).then(() => {
@@ -36,7 +38,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
         });
     }
     getPokemonDetails();
-  }, [pokemonId, url, isInfoOpen]);
+  }, [url, isInfoOpen, pokemonId, id]);
 
   useEffect(() => {
     if (pokemonInfo === null) {
@@ -44,7 +46,10 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
     } else {
       ref.current.scrollIntoView();
       setTypeColor(pokemonInfo.types[0].type.name);
-      setNameToRead(pokemonInfo.name);
+
+      let string = pokemonInfo.name.replace(/[^a-zA-Z0-9Éé,.]/g, ', ');
+      setNameToRead(string);
+      console.log(string)
 
       const getImage = async() => {
         try {
@@ -71,21 +76,26 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
       const getDescription = async() => {
         let descriptionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`;
 
+        let typeArray = [];
+        pokemonInfo.types.map((type) => typeArray.push(type.type.name + ', '));
+
+        setArrayToRead(typeArray);
+
         return await axios.get(descriptionUrl)
           .then((res) => {
+            if(res.statusCode) {
+              console.log(res.statusCode)
+            }
             let descriptionData = res.data.flavor_text_entries[0].flavor_text;
             let string = descriptionData.replace(/[^a-zA-Z0-9Éé,.]/g, ' ');
 
             setDescription(string);
             setTextToRead(string);
 
-            let typeArray = [];
-            pokemonInfo.types.map((type) => typeArray.push(type.type.name + ', '));
-
-            setArrayToRead(typeArray);
-
           }).catch((err) => {
-            console.log(err);
+            console.log(err.response);
+            setTextToRead('Description, Not found!');
+            setDescription('Description not found...');
           });
       }
 
@@ -191,7 +201,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
   }, [cancel, isInfoOpen, speaking]);
 
   useEffect(() => {
-    if (isMute) {
+    if (isMute || pokemonId !== id) {
       cancel();
       return;
     } else if (textToRead === '') {
@@ -202,7 +212,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
         speak({text: text, voice, rate: 0.8, pitch: 1});
       }, 500);
     }
-  }, [textToRead, isMute]);
+  }, [textToRead, isMute, pokemonId]);
 
   return(
       <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
