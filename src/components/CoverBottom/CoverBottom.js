@@ -4,8 +4,9 @@ import './CoverBottom.css';
 import BackBtn from '../../images/icon/u-turn-left.png';
 import CloseBtn from '../../images/icon/close.png';
 import MuteBtn from '../../images/icon/audio.png';
+import UnmuteBtn from '../../images/icon/mute.png';
 
-export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOpen, setSearchInputOpen }) {
+export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOpen, setSearchInputOpen, isMute, setIsMute }) {
 
   const [showContent, setShowContent] = useState(false);
 
@@ -41,8 +42,13 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
             <img className='CoverBottom__button-icon' src={BackBtn} alt='Back button'/>
           </button>
 
-          <button className='CoverBottom__center-button'>
-            <img className='CoverBottom__button-icon' src={MuteBtn} alt='Mute button'/>
+          <button className='CoverBottom__center-button' onClick={() => setIsMute(!isMute)}>
+            {
+              isMute ?
+                <img className='CoverBottom__button-icon' src={UnmuteBtn} alt='Unmute button'/>
+                :
+                <img className='CoverBottom__button-icon' src={MuteBtn} alt='Mute button'/>
+            }
           </button>
 
           <button className='CoverBottom__button' onClick={() => onCloseButtonClick()}>

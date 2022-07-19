@@ -13,6 +13,7 @@ export default function App() {
   const [pokemonId, setPokemonId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [isMute, setIsMute] = useState(false);
   const [searchInputOpen, setSearchInputOpen] =useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -86,6 +87,7 @@ export default function App() {
             searchInputOpen={searchInputOpen}
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
+            isMute={isMute}
           />
         :
           <button className='App__button' onClick={() => setIsOpen(true)}>POKÉDEX</button>
@@ -96,6 +98,8 @@ export default function App() {
         isInfoOpen={isInfoOpen}
         setIsInfoOpen={setIsInfoOpen}
         setSearchInputOpen={setSearchInputOpen}
+        isMute={isMute}
+        setIsMute={setIsMute}
       />
     </div>
   );

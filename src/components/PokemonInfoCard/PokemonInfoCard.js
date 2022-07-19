@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import ProgressBar from "@ramonak/react-progress-bar";
 import Pokeload from '../../images/Pokeball-gif.gif';
 import Error from '../../images/gastly-404.gif';
 import './PokemonInfoCard.css';
 
-export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
+export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
 
+  const {speak, cancel, speaking, voices} = useSpeechSynthesis();
+  const voice = voices[1] || null;
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonInfo, setPokemonInfo] = useState(null);
   const [image, setImage] = useState(null);
@@ -15,6 +18,11 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
   const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
   const ref = useRef();
+
+  const [nameToRead, setNameToRead] = useState('');
+  const [textToRead, setTextToRead] = useState('');
+  const [arrayToRead, setArrayToRead] = useState([]);
+
 
   useEffect(() => {
     const getPokemonDetails = async() => {
@@ -28,7 +36,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
         });
     }
     getPokemonDetails();
-  }, [pokemonId, url]);
+  }, [pokemonId, url, isInfoOpen]);
 
   useEffect(() => {
     if (pokemonInfo === null) {
@@ -36,6 +44,7 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
     } else {
       ref.current.scrollIntoView();
       setTypeColor(pokemonInfo.types[0].type.name);
+      setNameToRead(pokemonInfo.name);
 
       const getImage = async() => {
         try {
@@ -59,35 +68,31 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
         }
       }
 
-      const getEvolution = async() => {
-        let evolutionUrl = `https://pokeapi.co/api/v2/evolution-chain/${pokemonInfo.id}`;
-
-        return await axios.get(evolutionUrl)
-          .then((res) => {
-            console.log(res.data);
-          })
-      }
-
       const getDescription = async() => {
         let descriptionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`;
 
         return await axios.get(descriptionUrl)
           .then((res) => {
-            console.log(res.data.flavor_text_entries[0].flavor_text);
-            let t = res.data.flavor_text_entries[0].flavor_text;
-            let x = t.replace(/[^a-zA-Z0-9Éé,.-]/g, ' ');
-            setDescription(x);
+            let descriptionData = res.data.flavor_text_entries[0].flavor_text;
+            let string = descriptionData.replace(/[^a-zA-Z0-9Éé,.]/g, ' ');
+
+            setDescription(string);
+            setTextToRead(string);
+
+            let typeArray = [];
+            pokemonInfo.types.map((type) => typeArray.push(type.type.name + ', '));
+
+            setArrayToRead(typeArray);
+
           }).catch((err) => {
             console.log(err);
           });
       }
 
-
       getImage();
       getDescription();
-      getEvolution();
     }
-  }, [pokemonInfo]);
+  }, [pokemonInfo, isInfoOpen]);
 
   useEffect(() => {
     switch(typeColor) {
@@ -176,6 +181,29 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
     }
   }, [typeColor]);
 
+  useEffect(() => {
+    if(!isInfoOpen) {
+      if(speaking) {
+        cancel();
+      }
+      setDescription('');
+    }
+  }, [cancel, isInfoOpen, speaking]);
+
+  useEffect(() => {
+    if (isMute) {
+      cancel();
+      return;
+    } else if (textToRead === '') {
+      return;
+    } else {
+      setTimeout(() => {
+        let text = nameToRead + ', Type: ' + arrayToRead + textToRead;
+        speak({text: text, voice, rate: 0.8, pitch: 1});
+      }, 500);
+    }
+  }, [textToRead, isMute]);
+
   return(
       <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
         {pokemonInfo ?
@@ -244,7 +272,6 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
                 }
               </div>
             </div>
-            <div className='PokemonInfo__spacer' />
           </>
         :
           (isLoading && <img className='PokemonInfo__loading' src={Pokeload} alt='Loading pokemon'/>)
