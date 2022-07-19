@@ -73,8 +73,10 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen }) {
 
         return await axios.get(descriptionUrl)
           .then((res) => {
-            console.log(res.data.flavor_text_entries[0].flavor_text)
-            setDescription(res.data.flavor_text_entries[0].flavor_text);
+            console.log(res.data.flavor_text_entries[0].flavor_text);
+            let t = res.data.flavor_text_entries[0].flavor_text;
+            let x = t.replace(/[^a-zA-Z0-9Éé,.-]/g, ' ');
+            setDescription(x);
           }).catch((err) => {
             console.log(err);
           });

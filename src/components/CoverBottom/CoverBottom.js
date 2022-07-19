@@ -5,7 +5,7 @@ import BackBtn from '../../images/icon/u-turn-left.png';
 import CloseBtn from '../../images/icon/close.png';
 import MuteBtn from '../../images/icon/audio.png';
 
-export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOpen }) {
+export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOpen, setSearchInputOpen }) {
 
   const [showContent, setShowContent] = useState(false);
 
@@ -28,6 +28,7 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
   }
 
   const onCloseButtonClick = () => {
+    setSearchInputOpen(false);
     setIsInfoOpen(false);
     setIsOpen(false);
   }

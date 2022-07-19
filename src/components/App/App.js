@@ -95,6 +95,7 @@ export default function App() {
         setIsOpen={setIsOpen}
         isInfoOpen={isInfoOpen}
         setIsInfoOpen={setIsInfoOpen}
+        setSearchInputOpen={setSearchInputOpen}
       />
     </div>
   );
