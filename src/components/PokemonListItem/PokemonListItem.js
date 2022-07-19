@@ -10,7 +10,7 @@ export default function PokemonItem({ item, id, image, name, setPokemonId, setIs
   function onPokemonClick(pokemonData) {
     setPokemonId(pokemonData);
     setIsInfoOpen(true);
-  }
+  };
 
   useEffect(() => {
     if (image) {
@@ -26,11 +26,12 @@ export default function PokemonItem({ item, id, image, name, setPokemonId, setIs
 
   return(
     <div className='PokemonItem' key={id} onClick={() => onPokemonClick(item)}>
+    
       {isImageLoading ? 
         <img className='PokemonItem__image' src={Pokeload} alt='Loading pokemon'/>
       :
         <>
-          <p className='PokemonItem__id' >{id}</p>
+          <p className='PokemonItem__id'>{id}</p>
           {imageError ?
             <img className='PokemonItem__image' src={Pokeload} alt='Loading pokemon'/>
             :

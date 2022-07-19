@@ -17,8 +17,7 @@ export default function App() {
   const [searchInputOpen, setSearchInputOpen] =useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
 
-   //Get all pokemons
-   useEffect(() => {
+  useEffect(() => {
     const getAllPokemons = async () => {
       const res = await axios.get(url + 'pokemon/?limit=100000&offset=0');
 
@@ -53,14 +52,14 @@ export default function App() {
 
     let next = pokemonId + 1;
     setPokemonId(next);
-  }
+  };
 
   const onPrevPokemonClick = () => {
     if (pokemonId === 1) return;
 
     let prev = pokemonId - 1;
     setPokemonId(prev);
-  }
+  };
 
   return (
     <div className="App">

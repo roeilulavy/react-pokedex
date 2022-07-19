@@ -17,7 +17,7 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
       }, 1000);
     } else {
       setShowContent(false);
-    }
+    };
   }, [isOpen]);
 
   const onBackButtonClick = () => {
@@ -26,14 +26,14 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
     } else {
       return;
     };
-  }
+  };
 
   const onCloseButtonClick = () => {
     setIsMute(true);
     setSearchInputOpen(false);
     setIsInfoOpen(false);
     setIsOpen(false);
-  }
+  };
 
   return (
     <div className={`CoverBottom ${isOpen && 'CoverBottom_open'}`}>
@@ -57,7 +57,7 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
           </button>
         </div>
       }
-      <div className='CoverBottom__background' />
+      <div className='CoverBottom__background'/>
     </div>
   );
 }

@@ -35,8 +35,10 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
         }).catch((err) => {
           console.log(err);
         });
-    }
+    };
+
     getPokemonDetails();
+
   }, [url, isInfoOpen, pokemonId, id]);
 
   useEffect(() => {
@@ -68,8 +70,8 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
         } catch (err) {
           console.log(err);
           setImageError(true);
-        }
-      }
+        };
+      };
 
       const getDescription = async() => {
         let descriptionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`;
@@ -92,11 +94,11 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
             setTextToRead('Description, Not found!');
             setDescription('Description not found...');
           });
-      }
+      };
 
       getImage();
       getDescription();
-    }
+    };
   }, [pokemonInfo, isInfoOpen]);
 
   useEffect(() => {
@@ -190,9 +192,9 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
     if(!isInfoOpen) {
       if(speaking) {
         cancel();
-      }
+      };
       setDescription('');
-    }
+    };
   }, [cancel, isInfoOpen, speaking]);
 
   useEffect(() => {
@@ -214,14 +216,14 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
         {pokemonInfo ?
          <>
             <div className='PokemonInfo__header' ref={ref}>
-              <img className='PokemonInfo__header-image' src={pokemonInfo.sprites.front_default} alt={pokemonInfo.name} />
+              <img className='PokemonInfo__header-image' src={pokemonInfo.sprites.front_default} alt={pokemonInfo.name}/>
               <h1 className='PokemonInfo__title'>#{pokemonInfo.id}  {pokemonInfo.name}</h1>
             </div>
           
             {imageError ?
-              <img className='PokemonInfo__image' src={Error} alt={pokemonInfo.name} />
+              <img className='PokemonInfo__image' src={Error} alt={pokemonInfo.name}/>
             :
-              <img className='PokemonInfo__image' src={image} alt={pokemonInfo.name} />
+              <img className='PokemonInfo__image' src={image} alt={pokemonInfo.name}/>
             }
 
             <div className={`PokemonInfo__info-container ${pokemonInfo.types[0].type.name}`}>

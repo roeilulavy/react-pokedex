@@ -11,6 +11,7 @@ export default function PokemonList({ pokemonList, setPokemonId, isInfoOpen, set
 
   return (
     <div className={isInfoOpen ? 'PokemonList_close' : 'PokemonList'}>
+
       {pokemonList.filter((item) => {
         if (checkIfStringStartsWith(searchKeyword, numbers)) {
           let id = (item.id).toString();
@@ -31,6 +32,7 @@ export default function PokemonList({ pokemonList, setPokemonId, isInfoOpen, set
           />
         );
       })}
+      
     </div>
   );
 }

@@ -22,21 +22,21 @@ export default function CoverTop({ isOpen, isInfoOpen, searchInputOpen, setSearc
   const onSearchClick = () => {
     if(isInfoOpen) return;
     setSearchInputOpen(!searchInputOpen);
-  }
+  };
 
   const onNextClick = () => {
     if(!isInfoOpen) return;
     onNextPokemonClick();
-  }
+  };
 
   const onPrevClick = () => {
     if(!isInfoOpen) return;
-    onPrevPokemonClick()
-  }
+    onPrevPokemonClick();
+  };
 
   const clearText = () => {
     setSearchKeyword('');
-  }
+  };
 
   return (
     <div className={`CoverTop ${isOpen && 'CoverTop_open'}`}>
@@ -54,7 +54,8 @@ export default function CoverTop({ isOpen, isInfoOpen, searchInputOpen, setSearc
           </button>
         </div>
       }
-      <div className='CoverTop__background' />
+      
+      <div className='CoverTop__background'/>
 
       {searchInputOpen &&
         <div className={`${isInfoOpen ? 'CoverTop__search-container_close' : 'CoverTop__search-container'}`}>
@@ -70,6 +71,7 @@ export default function CoverTop({ isOpen, isInfoOpen, searchInputOpen, setSearc
           </button>
         </div>
       }
+
     </div>
   );
 }
