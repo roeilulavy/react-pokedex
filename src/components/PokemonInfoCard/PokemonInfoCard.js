@@ -24,7 +24,6 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
   const [textToRead, setTextToRead] = useState('');
   const [arrayToRead, setArrayToRead] = useState([]);
 
-
   useEffect(() => {
     setId(pokemonId);
     const getPokemonDetails = async() => {
@@ -49,7 +48,6 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
 
       let string = pokemonInfo.name.replace(/[^a-zA-Z0-9Éé,.]/g, ', ');
       setNameToRead(string);
-      console.log(string)
 
       const getImage = async() => {
         try {
@@ -83,9 +81,6 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
 
         return await axios.get(descriptionUrl)
           .then((res) => {
-            if(res.statusCode) {
-              console.log(res.statusCode)
-            }
             let descriptionData = res.data.flavor_text_entries[0].flavor_text;
             let string = descriptionData.replace(/[^a-zA-Z0-9Éé,.]/g, ' ');
 
