@@ -10,7 +10,7 @@ export default function App() {
   const [url] = useState('https://pokeapi.co/api/v2/');
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonId, setPokemonId] = useState(0);
+  const [pokemonId, setPokemonId] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isMute, setIsMute] = useState(false);
