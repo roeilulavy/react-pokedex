@@ -64,7 +64,7 @@ export default function CoverTop({ isOpen, isInfoOpen, searchInputOpen, setSearc
             type='text'
             placeholder='Enter Name or ID'
             value={searchKeyword}
-            onChange={e => setSearchKeyword(e.target.value)}
+            onChange={e => setSearchKeyword(e.target.value.toLowerCase)}
           />
           <button className='CoverTop__search-clear-button' onClick={() => clearText()}>
             <img className='CoverTop__search-clear-button-icon' src={CloseBtn} alt='Close button'/>
