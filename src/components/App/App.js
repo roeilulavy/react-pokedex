@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 import './App.css';
 import CoverTop from '../CoverTop/CoverTop';
 import CoverBottom from '../CoverBottom/CoverBottom';
@@ -8,6 +9,10 @@ import Container from '../Container/Container';
 export default function App() {
 
   const [url] = useState('https://pokeapi.co/api/v2/');
+
+  const {speak, cancel, voices} = useSpeechSynthesis();
+  const voice = voices[1] || null;
+
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemonId, setPokemonId] = useState();
@@ -16,6 +21,10 @@ export default function App() {
   const [isMute, setIsMute] = useState(false);
   const [searchInputOpen, setSearchInputOpen] =useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  const [nameToRead, setNameToRead] = useState('');
+  const [textToRead, setTextToRead] = useState('');
+  const [arrayToRead, setArrayToRead] = useState([]);
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -61,6 +70,30 @@ export default function App() {
     setPokemonId(prev);
   };
 
+  const resetTextToSpech = () => {
+    setTextToRead('');
+    setTextToRead('');
+    setArrayToRead([]);
+  }
+
+  useEffect(() => {
+    if (nameToRead === '' || textToRead === '' || arrayToRead.length === 0) {
+      return;
+    } else if (!isInfoOpen || !isOpen) {
+      resetTextToSpech();
+      cancel();
+    } else if (isMute) {
+      cancel();
+    } else {
+      setTimeout(() => {
+        let text = nameToRead + ', Type: ' + arrayToRead + textToRead;
+        speak({text: text, voice, rate: 0.8, pitch: 1});
+      }, 500);
+    }
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInfoOpen, isMute, textToRead]);
+
   return (
     <div className="App">
       <CoverTop
@@ -86,7 +119,10 @@ export default function App() {
             searchInputOpen={searchInputOpen}
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
-            isMute={isMute}
+            setIsMute={setIsMute}
+            setNameToRead={setNameToRead}
+            setTextToRead={setTextToRead}
+            setArrayToRead={setArrayToRead}
           />
         :
           <button className='App__button' onClick={() => setIsOpen(true)}>POKÉDEX</button>

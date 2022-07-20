@@ -29,7 +29,6 @@ export default function CoverBottom({ isOpen, setIsOpen, isInfoOpen, setIsInfoOp
   };
 
   const onCloseButtonClick = () => {
-    setIsMute(true);
     setSearchInputOpen(false);
     setIsInfoOpen(false);
     setIsOpen(false);
