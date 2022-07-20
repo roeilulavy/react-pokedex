@@ -2,7 +2,7 @@
   "name": "react-pokedex",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://github.com/roeilulavy/react-pokedex",
+  "homepage": "http://roeilulavy.github.io/react-pokedex",
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.0.1",
     "@testing-library/jest-dom": "^5.16.3",
