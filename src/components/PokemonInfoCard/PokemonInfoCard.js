@@ -1,105 +1,115 @@
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useEffect, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import Pokeload from '../../images/Pokeball-gif.gif';
 import Error from '../../images/gastly-404.gif';
 import './PokemonInfoCard.css';
 
-export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
+export default function PokemonInfo({ url, pokemonId, isInfoOpen, setNameToRead, setTextToRead, setArrayToRead, setIsMute }) {
 
-  const {speak, cancel, speaking, voices} = useSpeechSynthesis();
-  const voice = voices[1] || null;
-  const [id, setId] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [pokemonInfo, setPokemonInfo] = useState(null);
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(true);  
+  const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
+
   const [typeColor, setTypeColor] = useState();
   const [color, setColor] = useState('');
-  const ref = useRef();
 
-  const [nameToRead, setNameToRead] = useState('');
-  const [textToRead, setTextToRead] = useState('');
-  const [arrayToRead, setArrayToRead] = useState([]);
+  const [pokemonInfo, setPokemonInfo] = useState(null);
+  const [pokemonID, setPokemonID] = useState('');
+  const [headerImage, setHeaderImage] = useState('');
+  const [pokemonName, setPokemonName] = useState('');
+  const [pokemonImage, setPokemonImage] = useState(null);
+  const [pokemonDescription, setPokemonDescription] = useState('');
+  const [pokemonHeight, setPokemonHeight] = useState('');
+  const [pokemonWeight, setPokemonWeight] = useState('');
+  const [pokemonTypes, setPokemonTypes] = useState([]);
+  const [pokemonAbilities, setPokemonAbilities] = useState([]);
+  const [pokemonStats, setPokemonStats] = useState([]);
 
   useEffect(() => {
-    setId(pokemonId);
+    setIsMute(true);
+    setIsLoading(true);
+    setImageLoading(true);
+
     const getPokemonDetails = async() => {
-      return await axios.get(url + 'pokemon/' + id)
+      return await axios.get(url + 'pokemon/' + pokemonId)
         .then(res => {
           setPokemonInfo(res.data);
-        }).then(() => {
-          setIsLoading(false);
         }).catch((err) => {
           console.log(err);
         });
     };
-
     getPokemonDetails();
 
-  }, [url, isInfoOpen, pokemonId, id]);
+  }, [pokemonId, setIsMute, url]);
 
   useEffect(() => {
-    if (pokemonInfo === null) {
+    if(pokemonInfo === null) {
       return;
     } else {
-      ref.current.scrollIntoView();
+      setPokemonID(pokemonInfo.id);
+      setHeaderImage(pokemonInfo.sprites.front_default);
+      setPokemonName(pokemonInfo.name);
+      setPokemonHeight(pokemonInfo.height / 10);
+      setPokemonWeight(pokemonInfo.weight / 10);
       setTypeColor(pokemonInfo.types[0].type.name);
+
+      let pokemonTypeArray = [];
+      pokemonInfo.types.map((type) => pokemonTypeArray.push(type.type.name));
+
+      let pokemonTypeArrayToRead = [];
+      pokemonInfo.types.map((type) => pokemonTypeArrayToRead.push(type.type.name + ', '));
+
+      let pokemonAbilitiesArray = [];
+      pokemonInfo.abilities.map((ability) => pokemonAbilitiesArray.push(ability.ability.name));
+
+      let pokemonStatsArray = [];
+      pokemonInfo.stats.map((stat) => pokemonStatsArray.push(stat));
+
+      setPokemonTypes(pokemonTypeArray);
+      setArrayToRead(pokemonTypeArrayToRead);
+      setPokemonAbilities(pokemonAbilitiesArray);
+      setPokemonStats(pokemonStatsArray);
 
       let string = pokemonInfo.name.replace(/[^a-zA-Z0-9Éé,.]/g, ', ');
       setNameToRead(string);
 
       const getImage = async() => {
-        try {
-          let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`;
-
-          return await axios.get(imageUrl)
-            .then(res => {
-              if (res.status === 200) {
-                setImage(imageUrl);
-                setImageError(false);
-              } else {
-                setImageError(true);
-              }
-            }).catch((err) => {
-              console.log(err);
-              setImageError(true);
-            });
-        } catch (err) {
-          console.log(err);
-          setImageError(true);
-        };
+        let imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`;
+        return await axios.get(imageUrl)
+          .then(res => {
+            if(res.status === 200) {
+              setPokemonImage(imageUrl);
+              setImageLoading(false);
+              setIsMute(false);
+            }
+          }).catch((err) => {
+            console.log(err);
+            setImageError(true);
+          });
       };
 
       const getDescription = async() => {
-        let descriptionUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`;
-
-        let typeArray = [];
-        pokemonInfo.types.map((type) => typeArray.push(type.type.name + ', '));
-
-        setArrayToRead(typeArray);
-
-        return await axios.get(descriptionUrl)
+        return await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemonInfo.id}`)
           .then((res) => {
             let descriptionData = res.data.flavor_text_entries[0].flavor_text;
             let string = descriptionData.replace(/[^a-zA-Z0-9Éé,.]/g, ' ');
 
-            setDescription(string);
+            setPokemonDescription(string);
             setTextToRead(string);
-
           }).catch((err) => {
             console.log(err.response);
+            setPokemonDescription('Description not found...');
             setTextToRead('Description, Not found!');
-            setDescription('Description not found...');
           });
       };
 
       getImage();
       getDescription();
+
+      setIsLoading(false);
     };
-  }, [pokemonInfo, isInfoOpen]);
+  }, [pokemonInfo, setIsMute, setNameToRead, setTextToRead, setArrayToRead]);
 
   useEffect(() => {
     switch(typeColor) {
@@ -188,101 +198,84 @@ export default function PokemonInfo({ url, pokemonId, isInfoOpen, isMute }) {
     }
   }, [typeColor]);
 
-  useEffect(() => {
-    if(!isInfoOpen) {
-      if(speaking) {
-        cancel();
-      };
-      setDescription('');
-    };
-  }, [cancel, isInfoOpen, speaking]);
-
-  useEffect(() => {
-    if (isMute || pokemonId !== id) {
-      cancel();
-      return;
-    } else if (textToRead === '') {
-      return;
-    } else {
-      setTimeout(() => {
-        let text = nameToRead + ', Type: ' + arrayToRead + textToRead;
-        speak({text: text, voice, rate: 0.8, pitch: 1});
-      }, 500);
-    }
-  }, [textToRead, isMute, pokemonId]);
-
   return(
-      <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
-        {pokemonInfo ?
-         <>
-            <div className='PokemonInfo__header' ref={ref}>
-              <img className='PokemonInfo__header-image' src={pokemonInfo.sprites.front_default} alt={pokemonInfo.name}/>
-              <h1 className='PokemonInfo__title'>#{pokemonInfo.id}  {pokemonInfo.name}</h1>
-            </div>
-          
-            {imageError ?
-              <img className='PokemonInfo__image' src={Error} alt={pokemonInfo.name}/>
+    <div className={isInfoOpen ? 'PokemonInfo' : 'PokemonInfo_close'}>
+      {
+        isLoading ?
+          <img className='PokemonInfo__loading' src={Pokeload} alt='Loading pokemon'/>
+        :
+
+        <>
+          <div className='PokemonInfo__header'>
+            <img className='PokemonInfo__header-image' src={headerImage} alt={pokemonName}/>
+            <h1 className='PokemonInfo__title'>#{pokemonID}  {pokemonName}</h1>
+          </div>
+
+          {imageLoading ? 
+            <img className='PokemonInfo__image' src={Pokeload} alt={'Loading..'}/>
             :
-              <img className='PokemonInfo__image' src={image} alt={pokemonInfo.name}/>
-            }
-
-            <div className={`PokemonInfo__info-container ${pokemonInfo.types[0].type.name}`}>
-              <div className='PokemonInfo__type-container'>
-                <h2 className='PokemonInfo__type-h2'>Description</h2>
-                <p className='PokemonInfo__body-p'>{description}</p>
-              </div>
-
-              <div className='PokemonInfo__body-container'>
-                <p className='PokemonInfo__body-p'>height: {pokemonInfo.height / 10} m</p>
-                <p className='PokemonInfo__body-p'>weight: {pokemonInfo.weight / 10} kg</p>
-              </div>
-            
-              <div className='PokemonInfo__type-container'>
-                <h2 className='PokemonInfo__type-h2'>Type</h2>
-                <div className='PokemonInfo__type-type'>
-                  {
-                    pokemonInfo.types.map((type, index) => {
-                      return(
-                        <p key={index} className={`type ${type.type.name}`}>{type.type.name}</p>
-                      );
-                    })
-                  }
-                </div>
-              </div>
-
-              <div className='PokemonInfo__abilities-container'>
-                <h2 className='PokemonInfo__type-h2'>Abilities</h2>
-                <div className='PokemonInfo__ability-ability'>
-                  {
-                    pokemonInfo.abilities.map((ability, index) => {
-                      return(
-                        <h4 key={index} className='PokemonInfo__ability-name'>{ability.ability.name}</h4>
-                      );
-                    })
-                  }
-                  </div>
-              </div>
+            (imageError ?
+              <img className='PokemonInfo__image' src={Error} alt={'Error'}/>
+              :
+              <img className='PokemonInfo__image' src={pokemonImage} alt={pokemonName}/>
+            )
+          }
+      
+          <div className={`PokemonInfo__info-container ${typeColor}`}>
+            <div className='PokemonInfo__type-container'>
+              <h2 className='PokemonInfo__type-h2'>Description</h2>
+              <p className='PokemonInfo__body-p'>{pokemonDescription}</p>
             </div>
-          
-            <div className='PokemonInfo__stats'>
-              <h2 className='PokemonInfo__type-h2 stats-h2'>Base status</h2>
-              <div className='PokemonInfo__stats-container'>
+
+            <div className='PokemonInfo__body-container'>
+              <p className='PokemonInfo__body-p'>height: {pokemonHeight} m</p>
+              <p className='PokemonInfo__body-p'>weight: {pokemonWeight} kg</p>
+            </div>
+      
+            <div className='PokemonInfo__type-container'>
+              <h2 className='PokemonInfo__type-h2'>Type</h2>
+              <div className='PokemonInfo__type-type'>
                 {
-                  pokemonInfo.stats.map((stat, index) => {
+                  pokemonTypes.map((type, index) => {
                     return(
-                      <div key={index}>
-                        <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
-                        <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius='5px' />
-                      </div>
+                      <p key={index} className={`type ${type}`}>{type}</p>
                     );
                   })
                 }
               </div>
             </div>
-          </>
-        :
-          (isLoading && <img className='PokemonInfo__loading' src={Pokeload} alt='Loading pokemon'/>)
-        }
-      </div>
-    );
+
+            <div className='PokemonInfo__abilities-container'>
+              <h2 className='PokemonInfo__type-h2'>Abilities</h2>
+              <div className='PokemonInfo__ability-ability'>
+                {
+                  pokemonAbilities.map((ability, index) => {
+                    return(
+                      <h4 key={index} className='PokemonInfo__ability-name'>{ability}</h4>
+                    );
+                  })
+                }
+                </div>
+            </div>
+          </div>
+    
+          <div className='PokemonInfo__stats'>
+            <h2 className='PokemonInfo__type-h2 stats-h2'>Base status</h2>
+            <div className='PokemonInfo__stats-container'>
+              {
+                pokemonStats.map((stat, index) => {
+                  return(
+                    <div key={index}>
+                      <p className='PokemonInfo__stats-name'>{stat.stat.name}</p>
+                      <ProgressBar completed={stat.base_stat} maxCompleted={200} bgColor={color} borderRadius='5px' />
+                    </div>
+                  );
+                })
+              }
+            </div>
+          </div>
+        </>
+      }
+    </div>
+  );
 }
