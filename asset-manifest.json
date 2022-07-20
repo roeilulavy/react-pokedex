@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/roeilulavy/react-pokedex/static/css/main.0b2ec6b2.css",
-    "main.js": "/roeilulavy/react-pokedex/static/js/main.c4fbd020.js",
-    "static/media/Pokeball-gif.gif": "/roeilulavy/react-pokedex/static/media/Pokeball-gif.228d69139e2086cb8d81.gif",
-    "static/media/gastly-404.gif": "/roeilulavy/react-pokedex/static/media/gastly-404.b32c66d47f16428c86e0.gif",
-    "static/media/bottom.png": "/roeilulavy/react-pokedex/static/media/bottom.0c7145843f8d1e7d2d93.png",
-    "static/media/top.png": "/roeilulavy/react-pokedex/static/media/top.5781f7afbe35d887f56c.png",
-    "static/media/pokeball-jump.gif": "/roeilulavy/react-pokedex/static/media/pokeball-jump.1ddbbca3da4eb2283b20.gif",
-    "index.html": "/roeilulavy/react-pokedex/index.html",
-    "static/media/search.svg": "/roeilulavy/react-pokedex/static/media/search.f0a473f9db26e5bef5a43effc4bc6fdd.svg",
-    "main.0b2ec6b2.css.map": "/roeilulavy/react-pokedex/static/css/main.0b2ec6b2.css.map",
-    "main.c4fbd020.js.map": "/roeilulavy/react-pokedex/static/js/main.c4fbd020.js.map"
+    "main.css": "/react-pokedex/static/css/main.476512e6.css",
+    "main.js": "/react-pokedex/static/js/main.6b99a243.js",
+    "static/media/Pokeball-gif.gif": "/react-pokedex/static/media/Pokeball-gif.228d69139e2086cb8d81.gif",
+    "static/media/gastly-404.gif": "/react-pokedex/static/media/gastly-404.b32c66d47f16428c86e0.gif",
+    "static/media/bottom.png": "/react-pokedex/static/media/bottom.0c7145843f8d1e7d2d93.png",
+    "static/media/top.png": "/react-pokedex/static/media/top.5781f7afbe35d887f56c.png",
+    "static/media/pokeball-jump.gif": "/react-pokedex/static/media/pokeball-jump.1ddbbca3da4eb2283b20.gif",
+    "index.html": "/react-pokedex/index.html",
+    "static/media/search.svg": "/react-pokedex/static/media/search.f0a473f9db26e5bef5a43effc4bc6fdd.svg",
+    "main.476512e6.css.map": "/react-pokedex/static/css/main.476512e6.css.map",
+    "main.6b99a243.js.map": "/react-pokedex/static/js/main.6b99a243.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b2ec6b2.css",
-    "static/js/main.c4fbd020.js"
+    "static/css/main.476512e6.css",
+    "static/js/main.6b99a243.js"
   ]
 }
