@@ -1,11 +1,14 @@
 .App {
   width: 600px;
   height: 100vh;
-  background-color: rgb(150, 255, 255);
+  background-color: rgb(197, 237, 255);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .App__button {
@@ -30,10 +33,4 @@
   background-color: rgb(180, 255, 255);
   box-shadow: 0px 0px 10px 0px black;
   border: solid 2px rgba(64, 217, 255, 0);
-}
-
-@media screen and (max-width:600px) {
-  .App {
-    min-width: 100%;
-  }
 }

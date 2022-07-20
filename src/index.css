@@ -1,17 +1,13 @@
 @import url(./vendor/normalize.css);
-@import url(./fonts/fonts.css);
 
 #root {
   background-color: black;
   width: 100vw;
+  min-width: 350px;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media screen and (max-width:750px) {
-  #root {
-    align-items: flex-start;
-  }
+  margin: 0;
+  padding: 0;
 }
