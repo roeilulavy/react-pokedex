@@ -20,7 +20,7 @@ You can search for a Pokemon name or ID.
 ### Dependencies
 
 * Fetch data => [axios](https://www.npmjs.com/package/axios)
-* Text to speach => [react-speech-kit](https://www.npmjs.com/package/react-speech-kit)
+* Text to speech => [react-speech-kit](https://www.npmjs.com/package/react-speech-kit)
 * Api => [https://pokeapi.co](https://pokeapi.co/)
 
 ### Installing
