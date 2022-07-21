@@ -7,13 +7,11 @@ https://roeilulavy.github.io/react-pokedex/
 
 ## Description
 
-Once opening the web app, you will get a close Pokedex view.
-Press the Pokedex button to open the tiles.
+Once opening the web app, you will get a close Pokedex view. Press the Pokedex button to open the tiles.
 
-After opening the tiles you will get a list full of Pokemons.
-You can click on a Pokemon card and a new screen will apeare with the Pokemon's details and the Pokedex will read for you the description of the Pokemon.
+After opening the tiles you will get a list full of Pokémon's. You can click on a Pokémon card and a new screen will appear with the Pokémon's details and the Pokedex will read for you the description of the Pokémon.
 
-You can search for a Pokemon name or ID.
+You can search for a Pokémon name or ID.
 
 ## Getting Started
 
