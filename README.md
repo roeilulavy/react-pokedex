@@ -1,6 +1,6 @@
 # React-Pokedex
 
-In this web app you can explore and learn varient of Pokemons.
+In this web app you can explore and learn about variant of Pokemons.
 
 https://roeilulavy.github.io/react-pokedex/
 
@@ -19,8 +19,8 @@ You can search for a Pokemon name or ID.
 
 ### Dependencies
 
-* Fetch data => axios
-* Text to speach => react-speech-kit
+* Fetch data => [axios](https://www.npmjs.com/package/axios)
+* Text to speach => [react-speech-kit](https://www.npmjs.com/package/react-speech-kit)
 * Api => [https://pokeapi.co](https://pokeapi.co/)
 
 ### Installing
@@ -40,8 +40,8 @@ npm start
 Contributors names and contact info
 
 Roy Lulavy
-Github => [@roeilulavi](https://github.com/roeilulavy)
-Gmail => [roy.lulavy@gmail.com](roy.lulavy@gmail.com)
+- Github => [@roeilulavi](https://github.com/roeilulavy)
+- Gmail => [roy.lulavy@gmail.com](roy.lulavy@gmail.com)
 
 
 ## License
