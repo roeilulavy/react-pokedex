@@ -5,7 +5,7 @@
   "homepage": "http://roeilulavy.github.io/react-pokedex",
   "dependencies": {
     "@ramonak/react-progress-bar": "^5.4.0",
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.13.5",
