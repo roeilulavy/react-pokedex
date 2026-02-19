@@ -34,6 +34,15 @@ You can search for a Pokémon name or ID.
 npm start
 ```
 
+## Security
+
+This repository uses Dependabot to automatically check for security updates and apply them:
+- **Automated Dependency Updates**: Dependabot checks for dependency updates daily
+- **Auto-Merge for Security Patches**: Security patches and minor updates are automatically approved and merged
+- **Grouped Updates**: Development and production dependencies are grouped for easier management
+
+The configuration can be found in `.github/dependabot.yml` and `.github/workflows/dependabot-auto-merge.yml`.
+
 ## Authors
 
 Contributors names and contact info
