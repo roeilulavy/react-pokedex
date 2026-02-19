@@ -11,6 +11,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
+    # Security: Only run for Dependabot PRs to prevent unauthorized access
     if: github.actor == 'dependabot[bot]'
     steps:
       - name: Fetch Dependabot metadata

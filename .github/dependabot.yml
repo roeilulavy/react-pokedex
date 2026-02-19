@@ -6,11 +6,13 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 10
     groups:
+      # Group development dependencies for minor and patch updates
       development-dependencies:
         dependency-type: "development"
         update-types:
           - "minor"
           - "patch"
+      # Group production dependencies for patch updates only (conservative approach)
       production-dependencies:
         dependency-type: "production"
         update-types:
